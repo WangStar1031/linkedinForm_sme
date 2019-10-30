@@ -1,14 +1,8 @@
 <?php
 	session_start();
-	$from = "";
-	if( isset($_GET['from'])){
-		$from = $_GET['from'];
-	}
-	if( !isset( $_SESSION['userEmail']))
+
+	if( !isset( $_SESSION['profileEmail']))
 		header("Location: login.php");
-	if( isset($_GET['from'])){
-		header("Location: " . $_GET['from']);
-		exit();
-	}
-	header("Location: main.php");
+	
+	header("Location: profile.php");
 ?>

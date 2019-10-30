@@ -5,15 +5,17 @@ $_firstName = "";
 $_lastName = "";
 
 require_once 'library/userManager.php';
+$isPost = false;
 if( isset($_POST['email_name'])){
 	$email_name = $_POST['email_name'];
 	$password = $_POST['password'];
 	$_firstName = $_POST['first_name'];
-	$_lastName = $_POST['first_name'];
-	$ret = registerUser($_firstName, $_lastName, $email_name, $password);
-	if( $ret != false){
-		header("Location: index.php");
-	}
+	$_lastName = $_POST['last_name'];
+	$ret = registerProfile($_firstName, $_lastName, $email_name, $password);
+  if( $ret === true){
+    header("Location: login.php");
+  }
+  $isPost = true;
 }
 ?>
 
@@ -22,11 +24,22 @@ if( isset($_POST['email_name'])){
 <?php
 include("assets/components/header.php");
 ?>
-
+<style type="text/css">
+  .errorMsg{
+    color: red;
+  }
+</style>
 <body>
 <main class="auth-main">
   <div class="auth-block">
     <h3>Sign up to Nodes<!-- <img src="assets/imgs/vision-logo.png" width="50px;"> --> </h3>
+    <?php
+    if( $isPost){
+    ?>
+      <div class="errorMsg"><?=$ret?></div>
+    <?php
+    }
+    ?>
     <form class="form-horizontal" method="POST" onsubmit="return validate()">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label" required>FirstName</label>

@@ -15,10 +15,11 @@ if( isset($_POST['email_name'])){
     $password = $_POST['password'];
   }
   require_once 'library/userManager.php';
-  $userVeri = verifyUser($email_name, $password);
+  $userVeri = verifyProfile($email_name, $password);
+  // $userVeri = verifyUser($email_name, $password);
   if( $userVeri == 1){
     session_start();
-    $_SESSION['userEmail'] = $email_name;
+    $_SESSION['profileEmail'] = $email_name;
     if( $from != ""){
       header("Location: index.php?from=" . $from);
     } else{

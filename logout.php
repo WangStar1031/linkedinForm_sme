@@ -1,5 +1,5 @@
 <?php
 session_start();
-$_SESSION['userEmail'] = "";
+$_SESSION['profileEmail'] = "";
 header('Location: login.php');
 ?>

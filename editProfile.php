@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	if( !isset( $_SESSION['userEmail']))
+	if( !isset( $_SESSION['profileEmail']))
 		header("Location: login.php");
-	$userEmail = $_SESSION['userEmail'];
+	$userEmail = $_SESSION['profileEmail'];
 	if( $userEmail == "")
 		header("Location: login.php?from=main.php");
 	require_once __DIR__ . '/library/userManager.php';
@@ -12,16 +12,16 @@
 
 	include("assets/components/header.php");
 
-	$id = "";
-	if( isset($_GET['profile'])) $id = $_GET['profile'];
-	if( isset($_POST['profile'])) $id = $_POST['profile'];
-	if( $id == ""){
-		header("Location: main.php");
+
+	$id = getProfileIdFromEmail($userEmail);
+	if( !$id){
+		header("Location: login.php");
 	}
+
 	$profile = getProfileFromId($id);
 	include("assets/components/header.php");
 	if( !$profile)
-		header("Location: main.php");
+		header("Location: logout.php");
 	function getRealDate($strDate, $isFrom = true){
 		$strDate = trim($strDate);
 		if( count(explode("-", $strDate)) == 3){
@@ -80,7 +80,7 @@
 	}
 </style>
 <div class="topBar col-lg-12">
-	<a href="main.php">
+	<a href="index.php">
 		<img src="assets/imgs/vision-logo-1.png">
 		<span class="topTitle"><strong>Nodes</strong></span>
 	</a>
@@ -571,7 +571,7 @@
 		$.post("api_getProfiles.php", {case:"manUpdateProfile", email: userEmail,profileId: <?=$id?>, data: JSON.stringify(data)}, function( data){
 			if( data = "Inserted"){
 				alert("Successfully Saved.");
-				window.location.href = "profile.php?profile=<?=$id?>";
+				window.location.href = "profile.php";
 			} else{
 				alert("Saving profile failed.");
 			}

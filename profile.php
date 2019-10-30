@@ -1,27 +1,28 @@
 <?php
 	session_start();
-	if( !isset( $_SESSION['userEmail']))
+	if( !isset( $_SESSION['profileEmail']))
 		header("Location: login.php");
-	$userEmail = $_SESSION['userEmail'];
+	$userEmail = $_SESSION['profileEmail'];
 	if( $userEmail == "")
-		header("Location: login.php?from=main.php");
-	$id = "";
-	if( isset($_GET['profile'])) $id = $_GET['profile'];
-	if( isset($_POST['profile'])) $id = $_POST['profile'];
-
-	if( $id == ""){
-		header("Location: main.php");
-	}
+		header("Location: login.php");
 
 	require_once __DIR__ . '/library/userManager.php';
 	require_once __DIR__ . '/library/projectManager.php';
 	require_once __DIR__ . '/library/countries.php';
 	require_once __DIR__ . '/library/timezone.php';
 
+
+	$id = getProfileIdFromEmail($userEmail);
+	if( !$id){
+		header("Location: login.php");
+	}
 	$profile = getProfileFromId($id);
+	if( $profile['isFirst'] == 0){
+		header("Location: legal_doc.php");
+	}
 	include("assets/components/header.php");
 	if( !$profile)
-		header("Location: main.php");
+		header("Location: logout.php");
 
 
 ?>
@@ -30,7 +31,7 @@
 <link rel="stylesheet" type="text/css" href="assets/css/mainProjects.css?<?= time();?>">
 
 <div class="topBar col-lg-12">
-	<a href="main.php">
+	<a href="index.php">
 		<img src="assets/imgs/vision-logo-1.png">
 		<span class="topTitle"><strong>Nodes</strong></span>
 	</a>
@@ -204,7 +205,7 @@
           data-toggle="dropdown"> Tools &nbsp; &nbsp;&nbsp;<span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-  	<li><a href="editProfile.php?profile=<?=$id?>">Edit Page</a></li>
+  	<li><a href="editProfile.php">Edit Page</a></li>
   	<li><a href="#">Send PW reset email</a></li>
   	<li><a href="#">Email T&C</a></li>
   	<li><a href="#">Send bio update email</a></li>

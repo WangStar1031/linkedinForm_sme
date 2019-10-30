@@ -34,7 +34,18 @@
 		$result = $db->select($sql);
 		return $result[0]["Id"];
 	}
-	
+	function registerProfile($_Name, $_SurName, $_email, $_pass){
+		if( $_email == "")return "No Email";
+		global $db;
+		$profileId = getProfileIdFromEmail($_email);
+		if( $profileId){
+			return "Email Already Exists.";
+		}
+		$sql = "INSERT INTO profiles(FirstName, LastName, Email, Password) VALUES(?,?,?,?)";
+		$stmt = $db->prepare($sql);
+		$stmt->execute([$_Name, $_SurName, $_email, $_pass]);
+		return true;
+	}
 	function registerUser($_Name, $_SurName, $_email, $_pass) {
 		if( $_email == "")return false;
 		global $db;
@@ -48,6 +59,14 @@
 			return $result[0]["Id"];
 		}
 		return false;
+	}
+	function getProfileIdFromEmail($_userEmail){
+		global $db;
+		$sql = "SELECT Id FROM profiles WHERE Email='$_userEmail'";
+		$retVal = $db->select($sql);
+		if(!$retVal) return false;
+		if( count($retVal) == 0)return false;
+		return $retVal[0]['Id'];
 	}
 	function modifyProfile($_profileUrl, $_profile){
 		$firstName = $_profile['firstName'];
@@ -72,6 +91,19 @@
 		global $db;
 		$profileId = getProfileId4Url($_profileUrl);
 		removeProfileWithId($profileId);
+	}
+	function verifyProfile($_email, $_pass){
+		global $db;
+
+		$record = $db->select('SELECT * FROM profiles WHERE Email="' . $_email . '"');
+		if( $record){
+			$pass = $record[0]["Password"];
+			if( $pass == $_pass)
+				return 1;
+			else
+				return -1;
+		}
+		return 0;
 	}
 	function verifyUser($_email, $_pass) {
 		global $db;
