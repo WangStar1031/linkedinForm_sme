@@ -34,9 +34,13 @@ if( isset($_POST['email_name'])){
 include("assets/components/header.php");
 ?>
 <body>
-<main class="auth-main">
-  <div class="auth-block">
-    <h3>Sign in  to Nodes</h3>
+  <div style="position: absolute; width: 100%; height: 80px; background-color: #212e4d;">
+    
+  </div>
+    <img src="assets/imgs/Nodes-homepage-logo197by40-1.png" style="position: absolute; padding: 20px;">
+<main class="auth-main-1">
+  <div class="auth-block" style="background: #212e4d;">
+    <h3>Sign in to your Members Portal</h3>
     <form class="form-horizontal" method="POST">
       <input type="hidden" name="from" value="<?=$from?>">
       <div class="form-group">

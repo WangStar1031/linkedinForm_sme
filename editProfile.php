@@ -81,7 +81,7 @@
 </style>
 <div class="topBar col-lg-12">
 	<a href="index.php">
-		<img src="assets/imgs/vision-logo-1.png">
+		<img src="assets/imgs/Nodes-homepage-logo197by40-1.png">
 		<span class="topTitle"><strong>Nodes</strong></span>
 	</a>
 	<div class="topUserInfo">

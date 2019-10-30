@@ -23,6 +23,19 @@
 	include("assets/components/header.php");
 	if( !$profile)
 		header("Location: logout.php");
+	if( isset($_POST['submit'])){
+		if( isset($_POST['agree'])){
+			if( $_POST['agree'] == 'on'){
+				setAgree($id);
+				header("Location: profile.php");
+			}
+		}
+	}
 ?>
 
 <h1>legal_doc</h1>
+<form method="post">
+	<p>This is legal document.</p>
+	<label><input type="checkbox" name="agree"> I agree.</label><br>
+	<button name="submit" type="submit">Submit</button>
+</form>

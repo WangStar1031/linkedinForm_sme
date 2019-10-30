@@ -19,6 +19,16 @@ button.btn.btn-default {
   background: url("../../assets/imgs/login-bg.jpg");
   background-size: cover;
 }
+.auth-main-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  /*background: url("../../assets/imgs/login-bg.jpg");*/
+  background-size: cover;
+}
 .auth-block {
   width: 540px;
   margin: 0 auto;

@@ -420,6 +420,13 @@
 		}
 		return $retVal;
 	}
+	function setAgree($_id){
+		global $db;
+		$sql = "UPDATE profiles SET isFirst=1 WHERE Id=?";
+		$stmt= $db->prepare($sql);
+		$stmt->execute([$_id]);
+		return true;
+	}
 	function getProfileFromId($_id){
 		global $db;
 		$records = $db->select("SELECT * FROM profiles WHERE Id = '$_id'");

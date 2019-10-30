@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/auth.css">
-	<link rel="icon" type="image/png" href="assets/imgs/vision-logo.png">
+	<link rel="icon" type="image/png" href="assets/imgs/nodes-favicon.png">
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 </head>
